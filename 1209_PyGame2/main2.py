@@ -12,7 +12,9 @@ if __name__ == '__main__':
     v = 500
     dt = 0
     # limits FPS to 60
-    fps = 60
+    fps = 30
+    MYEVENTTYPE = pygame.USEREVENT + 1
+    pygame.time.set_timer(MYEVENTTYPE, 1000)
 
     while running:
         # fill the screen with a color to wipe away anything from last frame
@@ -24,8 +26,13 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEMOTION:
                 pygame.draw.circle(screen, "red", event.pos, 90)
+                pygame.draw.circle(screen, "red", (event.pos[0], height - event.pos[1]), 40)
                 pygame.draw.circle(screen, "red", (width - event.pos[0], event.pos[1]), 40)
-                pygame.draw.circle(screen, "red", (event.pos[1], event.pos[0]), 40)
+                pygame.draw.circle(screen, "red", (event.pos[1] - width, event.pos[0] - height), 40)
+
+            if event.type == MYEVENTTYPE:
+                print('Моё событие')
+
 
         # flip() the display to put your work on screen
         pygame.display.flip()
